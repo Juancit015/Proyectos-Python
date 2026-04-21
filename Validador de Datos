@@ -1,0 +1,63 @@
+validador = True
+while validador:
+    print("Bienvenido al validador de datos personales\n")
+    #!-----------------Validar nombre -------------------!
+    dato1 = True
+    while dato1:
+        nombre = (input("Ingrese su nombre: ")).lower()
+        if not nombre.replace(" ","").isalpha():
+            print("Error en la valiacion del nombre..") 
+            continue
+        dato1 = False
+    #!---------------- Fin validar nombre ----------------!
+    #!------------------ Validar usuario -----------------!
+    dato2 = True
+    while dato2:
+        usuario = input(f"{nombre} ingrese su usuario: ")
+        if len(usuario) < 3 or " " in usuario: #si lo q lee len es menor a 3 o si hay " " que indica espacios en usuario has esto:
+            print(f"{nombre} Tu usuario es invalido!!")
+            continue
+        dato2 = False
+    #!------------------- Validar edad -------------------!
+    dato3 = True
+    while dato3:
+        edad = input("{} Por favor ingresa tu edad: ".format(nombre))
+        try:
+            edad = int(edad)
+        except ValueError:
+            print(f"{nombre} Hubo un error al validar tu edad intentalo de nuevo")
+            continue
+        dato3 = False
+    #!------------------ Fin validar edad ------------------!
+    #!------------------- Validar Email --------------------!
+    dato4 = True
+    while dato4:
+        email = input(f"{nombre} Por favor ingrese su email: ")
+        if "@" in email and "." in email and "gmail" in email: # si hay esto en /in email y esto en email has esto
+            dato4 = False
+        else:
+            print(f"{nombre} Por favor introduce un Email valido")
+            continue
+    #!---------------------- Fin validar Email --------------!
+    #!---------------------- Datos del usuario---------------!
+    print("\n{} Bienvenido al final del validador\n".format(nombre))
+    
+    print("Tus datos:")
+    print(f"Nombre: {nombre}")
+    print(f"Usuario: {usuario}")
+    print(f"Edad: {edad}")
+    print(f"Email: {email}")
+    
+    dato5 = True
+    while dato5:
+        pregunta_final = input("Desea registrar a otra persona S/N: ").lower()
+        if pregunta_final == "si" or pregunta_final == "s" or pregunta_final == "yes":
+            print("Volviendo...")
+            dato5 = False
+        elif pregunta_final == "no" or pregunta_final == "n":
+            dato5 = False
+            validador = False
+        else:
+            print("Elija una opcion correcta!")
+#------------------------ Fin del sistema -------------------!
+print("Fin.")
