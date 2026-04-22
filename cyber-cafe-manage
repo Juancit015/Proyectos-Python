@@ -1,0 +1,157 @@
+import os
+
+#!---------------------------------------------------------!
+#!           CONFIGURACIÓN INICIAL Y VARIABLES             !
+#!---------------------------------------------------------!
+monto_total = 0
+monto_snaks = 0
+menu = True
+
+while menu:
+    os.system("clear")
+    print("SISTEMA DE GESTIÓN CIBER-V1.0 - INICIO DE TURNO\n")
+    
+    #!---------------------------------------------------------!
+    #!              REGISTRO E IDENTIFICACIÓN                  !
+    #!---------------------------------------------------------!
+    nombre = True
+    while nombre:
+        print("Bienvenido al panel de control. Por favor, identifíquese para continuar")
+        cajero = input("\nIngrese su nombre: ").strip().title()
+        if not cajero or not cajero.replace(" ","").isalpha():
+            print("Error en la validacion!")
+            continue
+        nombre = False
+
+    nombre_cajero = cajero.split()
+    print(f"\n¡Hola, {nombre_cajero[0]}! Has iniciado sesión correctamente. Hoy es un gran día para las ventas.")
+    
+    #!---------------------------------------------------------!
+    #!                 RECEPCIÓN DEL CLIENTE                   !
+    #!---------------------------------------------------------!
+    print("\n>>> Atendiendo a un nuevo cliente...")
+    print("!Cliente encontrado!\n")
+    
+    cliente = True
+    while cliente:
+        nombre_cliente = input("¿Con quién tenemos el gusto?: ").strip().title()
+        if not nombre_cliente or not nombre_cliente.replace(" ","").isalpha():
+            print("Hubo un error en la validacion del nombre...𝘪𝘯𝘵𝘦𝘯𝘵𝘢𝘭𝘰 𝘥𝘦 𝘯𝘶𝘦𝘷𝘰")
+            continue
+        cliente = False
+        nombre_cliente_limpio = nombre_cliente.split()
+    
+    print(f"¡Qué tal, {nombre_cliente_limpio[0]}! Es un gusto tenerte de vuelta en nuestro Ciber-Café.")
+
+    #!---------------------------------------------------------!
+    #!                 SERVICIOS DE INTERNET                   !
+    #!---------------------------------------------------------!
+    servicios = True
+    while servicios:
+        print("\t============================")
+        print("\t    SERVICIOS DISPONIBLES")
+        print("\t============================\n")
+        print("1. [MEDIA HORA] ....... S/ 0.30\n2. [UNA HORA] ......... S/ 1.00\n3. [DOS HORAS] ........ S/ 2.00")
+        
+        elejir = input("Elija una opcion: ")
+        try:
+            elejir = int(elejir)
+        except ValueError:
+            print("Hubo un error!...𝘪𝘯𝘨𝘳𝘦𝘴𝘢 𝘶𝘯𝘢 𝘰𝘱𝘤𝘪𝘰𝘯 𝘷𝘢𝘭𝘪𝘥𝘢")
+            continue
+            
+        if elejir == 1:
+            print(f"{nombre_cliente_limpio[0]} Elegiste Media hora")
+            precioPC = 0.30
+            monto_total += 0.30
+        elif elejir == 2:
+            print(f"{nombre_cliente_limpio[0]} Elegiste Una hora")
+            precioPC = 1
+            monto_total += 1
+        elif elejir == 3:
+            print(f"{nombre_cliente_limpio[0]} Elegiste Dos horas")
+            precioPC = 2
+            monto_total += 2
+        else:
+            print("Hubo un error en la compra...𝘦𝘭𝘪𝘫𝘦 𝘶𝘯𝘢 𝘰𝘱𝘤𝘪𝘰𝘯 𝘤𝘰𝘳𝘳𝘦𝘤𝘵𝘢")
+            continue
+        break
+
+    #!---------------------------------------------------------!
+    #!                   VENTA DE SNACKS                       !
+    #!---------------------------------------------------------!
+    snaks = True
+    while snaks:
+        print("\n¿Deseas acompañar tu sesión con algún snack o bebida?")
+        print("1: Jugo helado misterioso... S/2")
+        print("2: Galleta de chocolate S/1.50")
+        print("3: Item misterioso......  ??")
+        print("4: No")
+        
+        opcion_snaks = input("Elija una opcion: ")
+        try:
+            opcion_snaks = int(opcion_snaks)
+        except ValueError:
+            print("Hubo un error en la compra...𝘦𝘭𝘪𝘫𝘦 𝘶𝘯𝘢 𝘰𝘱𝘤𝘪𝘰𝘯 𝘤𝘰𝘳𝘳𝘦𝘤𝘵𝘢")
+            continue
+            
+        if opcion_snaks == 1:
+            print(f"{nombre_cliente_limpio[0]} Elegiste jugo helado misterioso...")
+            monto_snaks = 2
+            monto_total += 2
+        elif opcion_snaks == 2:
+            print(f"{nombre_cliente_limpio[0]} Elegiste Galleta de chocolate uwu")
+            monto_snaks += 1.50
+            monto_total += 1.50
+        elif opcion_snaks == 3:
+            print(f"{nombre_cliente_limpio[0]} Elegite item misterioso...")
+            monto_snaks = 0.1
+            monto_total += 0.1
+        elif opcion_snaks == 4:
+            print("OK")
+        else:
+            print("Hubo un error en la compra...𝘦𝘭𝘪𝘫𝘦 𝘶𝘯𝘢 𝘰𝘱𝘤𝘪𝘰𝘯 𝘤𝘰𝘳𝘳𝘦𝘤𝘵𝘢")
+            continue
+        break
+
+    #!---------------------------------------------------------!
+    #!             SISTEMA DE PAGO Y FACTURACIÓN               !
+    #!---------------------------------------------------------!
+    print("\n\t============================")
+    print("\t    RECIBO DE PAGO")
+    print("\t============================\n")
+    print(f"Atendido por: {nombre_cajero[0]}")
+    print(f"Cliente: {nombre_cliente_limpio[0]}")
+    print(f"Costo de PC S/:{round(precioPC,2)}")
+    print(f"Consumo Snacks: S/{round(monto_snaks,2)}")
+    
+    resultado = monto_total 
+    print(f"TOTAL A PAGAR: {round(resultado,2)}")
+    
+    pago = True
+    while pago:
+        try:
+            pagar = float(input("Ingrese el pago: "))
+            if pagar == resultado:
+                print("Pago Hecho! Gracias por su preferencia")
+                break
+            elif pagar > resultado:
+                vuelto = pagar - resultado
+                print(f"Pago Hecho! Gracias por su preferencia, vuelto de: {round(vuelto,2)}")
+                break
+            elif resultado > pagar:
+                print("Saldo insuficiente! intentalo de nuevo pq de aca no sales....")
+                continue
+        except ValueError:
+            print("Hubo un error en el pago...𝘤𝘰𝘭𝘰𝘤𝘢 𝘶𝘯 𝘮𝘰𝘯𝘵𝘰 𝘤𝘰𝘳𝘳𝘦𝘤𝘵𝘰")
+            continue
+
+    #!---------------------------------------------------------!
+    #!              CIERRE DE TURNO Y REPORTE                  !
+    #!---------------------------------------------------------!
+    print("\nGENERANDO REPORTE FINAL DE TURNO...")
+    print(f"El total recaudado bajo la supervisión de {nombre_cajero[0]} fue de: S/ {round(monto_total,2)}")
+    print("Cerrando sistema... ¡Buen trabajo el día de hoy!")
+    break
+
+print("Fin del programa... ;)")
