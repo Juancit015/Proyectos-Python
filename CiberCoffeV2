@@ -1,0 +1,157 @@
+import os
+
+#!==========================================================!
+#!         REAL CIBER-PY - SISTEMA DE REGISTRO V1.0        !
+#!==========================================================!
+
+os.system("clear")
+
+#!----------------------------------------------------------!
+#!              IDs DE CABINAS DISPONIBLES                  !
+#!----------------------------------------------------------!
+pc1 = "PC874"
+pc2 = "PC635"
+pc3 = "PC564"
+
+print("Bienvenido a Real Ciber-Py 🎮🕹️👾\n")
+
+#!----------------------------------------------------------!
+#!                   BUCLE PRINCIPAL                        !
+#!----------------------------------------------------------!
+menu_ciber = True
+while menu_ciber:
+    tiempopc = 0  # Se reinicia al inicio de cada cliente
+
+    print("Bienvenido al lobby! Indíquenos su nombre\n")
+
+    #!------------------------------------------------------!
+    #!                VALIDACIÓN DE NOMBRE                  !
+    #!------------------------------------------------------!
+    validar_nombre = True
+    while validar_nombre:
+        nombre = input("Ingrese su nombre: ").strip().title()
+        # replace(" ","") elimina espacios antes de validar con isalpha()
+        if not nombre.replace(" ", "").isalpha():
+            print("Error: Nombre inválido... 𝘪𝘯𝘵𝘦𝘯𝘵𝘢𝘭𝘰 𝘥𝘦 𝘯𝘶𝘦𝘷𝘰")
+            continue
+        validar_nombre = False
+
+    #!------------------------------------------------------!
+    #!               SELECCIÓN DE CABINA                    !
+    #!------------------------------------------------------!
+    print(f"\nExcelente {nombre.split()[0]}, ahora ingrese la ID de su cabina:\n")
+    print("\t---------------------")
+    print("\t|   ID disponibles  |")
+    print("\t---------------------\n")
+    print(f"\t  1: {pc1} 🖥️")
+    print(f"\t  2: {pc2} 🖥️")
+    print(f"\t  3: {pc3} 🖥️\n")
+
+    id_cabina = True
+    while id_cabina:
+        # upper() convierte lo ingresado a mayúsculas para comparar con los IDs
+        pc_opcion = input("Elija la ID de su PC (puede escribirlo en minúscula): ").strip().upper()
+        if pc_opcion == pc1:
+            infopc = pc1
+            id_cabina = False
+        elif pc_opcion == pc2:
+            infopc = pc2
+            id_cabina = False
+        elif pc_opcion == pc3:
+            infopc = pc3
+            id_cabina = False
+        else:
+            print("Error: Ingrese una ID válida.")
+            continue
+    print(f"✔ {nombre.split()[0]}, elegiste la cabina {infopc}\n")
+
+    #!------------------------------------------------------!
+    #!               SELECCIÓN DE TIEMPO                    !
+    #!------------------------------------------------------!
+    tiempo = True
+    while tiempo:
+        print(f"{nombre.split()[0]}, ingresa el tiempo que deseas estar en la PC:\n")
+        print("\t---------------------")
+        print("\t|      Tiempos      |")
+        print("\t---------------------\n")
+        print("\t  1 hora  → S/ 1.20")
+        print("\t  2 horas → S/ 2.20")
+        print("\t  3 horas → S/ 3.20\n")
+
+        tiempo_opcion = input("Ingrese la cantidad de horas (1, 2 o 3): ")
+        # try/except atrapa el error si el usuario escribe letras
+        try:
+            tiempo_opcion = int(tiempo_opcion)
+        except ValueError:
+            print("Error: Ingresa solo números.")
+            continue
+
+        if tiempo_opcion == 1:
+            tiempopc += 1.20
+            print("✔ Elegiste 1 hora.")
+        elif tiempo_opcion == 2:
+            tiempopc += 2.20
+            print("✔ Elegiste 2 horas.")
+        elif tiempo_opcion == 3:
+            tiempopc += 3.20
+            print("✔ Elegiste 3 horas.")
+        else:
+            print("Error: Opción inválida, elige 1, 2 o 3.")
+            continue
+        tiempo = False
+
+    #!------------------------------------------------------!
+    #!                   SECCIÓN DE PAGO                    !
+    #!------------------------------------------------------!
+    print("\nPor favor, ingrese el pago para finalizar.\n")
+    print(f"  PC elegida    : {infopc}")
+    print(f"  Horas         : {tiempo_opcion}")
+    print(f"  Total a pagar : S/ {round(tiempopc, 2)}\n")
+
+    pago = True
+    while pago:
+        pagar = input("Ingrese el pago: S/ ")
+        # float() permite ingresar montos con decimales
+        try:
+            pagar = float(pagar)
+        except ValueError:
+            print(f"Error: Ingresa un monto válido.")
+            continue
+
+        if pagar == tiempopc:
+            print("✔ Pago exacto. ¡Gracias!")
+            pago = False
+        elif pagar > tiempopc:
+            vuelto = pagar - tiempopc
+            print(f"✔ Pago recibido. Vuelto: S/ {round(vuelto, 2)}")
+            break
+        else:
+            print("Monto insuficiente, intente nuevamente.")
+            continue
+
+    #!------------------------------------------------------!
+    #!                      TICKET                         !
+    #!------------------------------------------------------!
+    print("\n---------  Ticket REAL CIBER-PY  ---------")
+    print(f"  Cliente  : {nombre.split()[0]}")
+    print(f"  Cabina   : {infopc}")
+    print(f"  Tiempo   : {tiempo_opcion} hora(s)")
+    print(f"  Total    : S/ {round(tiempopc, 2)}")
+    print(f"\n  Gracias por su visita, {nombre.split()[0]}! 👋")
+    print("------------------------------------------\n")
+
+    #!------------------------------------------------------!
+    #!               ¿ATENDER OTRO CLIENTE?                 !
+    #!------------------------------------------------------!
+    pregunta = True
+    while pregunta:
+        decision = input("¿Desea ingresar otro cliente? S/N: ").strip().lower()
+        if decision == "s" or decision == "yes":
+            pregunta = False
+        elif decision == "n" or decision == "no":
+            print("Saliendo del programa...")
+            pregunta = False
+            menu_ciber = False
+        else:
+            print("Error: Ingrese una opción válida.")
+            continue
