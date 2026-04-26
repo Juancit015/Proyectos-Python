@@ -1,0 +1,469 @@
+#!Librerias
+import os
+import time
+import sys
+import datetime
+import random
+
+#!Constantes
+PIN = [1242, 2535, 5372]
+MAXIMOS_INTENTOS = 3
+DNI = 8
+DESCUENTO_LINUXERO = 0.20
+NOMBRE_SISTEMA = "TechStore Py - Sistema de Ventas V1.0"
+NOMBRES_PERSONAL = ["sofia", "alex", "juan", "alejandro"]
+
+#PRECIOS CELULARES
+PRECIO_IPHONE_15 = 3500
+PRECIO_SAMSUNG_A54 = 1200
+PRECIO_REDMI_XIAOMI = 800
+
+#PRECIOS LAPTOPS:
+PRECIO_MACKBOOK_AIR = 5500
+PRECIO_LENOVO_IDEAPAD = 2200
+PRECIO_HP_PAVILLON = 1800
+
+#PRECIOS ACCESORIOS:
+PRECIO_AUDIFONO_SONY = 350
+PRECIO_MAUSE_LOGITECH = 120
+PRECIO_TECLADO_MECANICO = 280
+
+#!Variables:
+TicketID = random.randint(1425,2000) #Crear ID de ticket
+os.system("clear") #Limpiar pantalla
+ahora = datetime.datetime.now() #Variable para imprimir la fecha
+contador = 0
+
+#Celulares
+unidades_iphone = 0
+unidades_samsunga54 = 0
+unidades_xiaomi = 0
+
+#Laptops
+unidades_mackbook_air = 0
+unidades_lenovo_ideapad = 0
+unidades_hp_pavillon = 0
+
+#Accesorios
+unidades_audifonos_sony = 0
+unidades_mause_logitech = 0
+unidades_teclado_mecanico = 0
+
+
+
+#Login
+print("Cargando la plataforma....")
+time.sleep(1)
+print("Cargando Bytes....")
+time.sleep(1)
+print("Datos correctos!")
+time.sleep(1)
+os.system("clear")
+print(" Bienvenido al sistema TechStore ".center(50, "="))
+
+#Validar nombre
+while True:
+    nombre = input("\nIntroduzca su nombre: ").strip().lower()
+    if not nombre.replace(" ","").isalpha():
+        print("Opps! Caracteres invalidos , Intentalo de nuevo")
+        continue
+    if nombre in NOMBRES_PERSONAL:
+        print(f"\nBienvenido {nombre.capitalize()}")
+        print("\nCargando...")
+        time.sleep(3)
+        os.system("clear")
+        break
+    else:
+        print("Opps! El nombre no esta registrado , intentalo nuevamente")
+#!Validar PIN
+while True:
+    print(f"{nombre.title()} Como medida de seguridad por favor introduzca su PIN secreto\n")
+    pin = input(f"{nombre.title()} Ingrese el PIN: ").strip()
+    if not pin.isdigit():
+        print("\nOpps! Caracter Invalido , Intentalo de nuevo")
+        continue # Hara que vuelva al bucle de nuevo
+    pin = int(pin) #Sabiendo que lo ingresado esta conformado por digitos del 0 al 9 puedo convertir pin a int
+    if pin not in PIN:
+        print("\nAcceso denegado! intentelo nuevamente")
+        contador += 1
+        if contador >= MAXIMOS_INTENTOS:
+            print("Demasiados intentos! Saliendo del sistema")
+            sys.exit()
+        continue
+    if pin in PIN:
+        print("Acceso concedido")
+        time.sleep(2)
+        print("\nIngresando a la plataforma...")
+        time.sleep(4)
+        print("\033[31m\nReintentando!...\033[0m")
+        time.sleep(2)
+        print("\033[92m" + "\nIngreso exitoso!" + "\033[0m")
+        time.sleep(3)
+        print("\nLimpiando...")
+        time.sleep(2)
+        os.system("clear")
+        break
+
+#Datos cliente
+
+print(" Bienvenido a TechStore! ".center(50, "="))
+print("\nPor favor registrese\n")
+while True:
+    nombre_cliente = input("Registre su nombre: ").strip()
+    if not nombre_cliente.replace(" ","").isalpha():
+        print("Opps! Caracteres invalidos , Intentalo de nuevo")
+        continue
+    else:
+        print("\nNombre registrado!\n")
+        break
+
+#Validar DNI
+while True:
+    dni = input(f"{nombre_cliente.title()} Registre su DNI: ").strip()
+    if not dni.isdigit():
+        print("Opps! Caracteres invalidos , intentalo de nuevo")
+        continue
+    if len(dni) != DNI:
+        print("Opps! DNI invalido , intentalo nuevamente")
+        continue
+    if len(dni) == DNI:
+        print("\nDNI registrado!")
+        break
+#Validad edad
+while True:
+    try:
+        edad_cliente = int(input("\nRegistre su edad: "))
+        if edad_cliente >= 120 or edad_cliente < 18:
+            print(f"Lo sentimos {nombre_cliente.title()} tu edad no cumple los requisitos minimos...")
+            time.sleep(2)
+            print("Saliendo del sistema...")
+            sys.exit()
+        else:
+            print("\nEdad Registrada!")
+            time.sleep(2)
+            print("\nIngresando a la tienda.....")
+            time.sleep(2)
+            os.system("clear")
+            break
+    except ValueError:
+        print("Opps! Caracter invalido , intentalo nuevamente")
+        continue
+
+categorias = True
+while categorias:
+    print(" CATEGORIAS ".center(50, "=")) 
+    print("\n1: Celulares")
+    print("2: Laptops")
+    print("3: Accesorios")
+    print("4: Ver carrito\n")
+    elegir_categoria = input(f"{nombre_cliente.title()} Elija una categoria: ").strip()
+    if not elegir_categoria.isdigit():
+        print("Opps! Caracter invalido , intentalo nuevamente\n")
+        time.sleep(3)
+        os.system("clear")
+        continue
+    elegir_categoria = int(elegir_categoria)
+    if elegir_categoria == 1:
+        while True:
+            os.system("clear")
+            print(" CELULARES ".center(50, "="))
+            print("\nPRODUCCTOS CELULARES:\n")
+            print("1: iphone 15    - S/3500")
+            print("2: Samsung A54  - S/1200")
+            print("3: Xiaomi Redmi - S/800")
+            print("4: Salir de aqui/exit\n")
+            elegir_celular = input(f"{nombre_cliente.title()} elija alguna opcion: ").strip()
+            if not elegir_celular.isdigit():
+                print("Opps! Caracter invalido , Intentalo nuevamente")
+                time.sleep(3)
+                os.system("clear")
+                continue
+            elegir_celular = int(elegir_celular)
+            if elegir_celular == 1:
+                print("Cuantos Iphone 15 Deseas llevar")
+                cantidad_iphone = input("Introduzca la cantidad: ").strip()
+                if not cantidad_iphone.isdigit():
+                    print("Opps! Caracter invalido , intentenlo nuevamente")
+                    time.sleep(3)
+                    continue
+                cantidad_iphone = int(cantidad_iphone)
+                unidades_iphone += cantidad_iphone
+                print("OK!....")
+                time.sleep(2)
+                print("Guardando datos...")
+                time.sleep(3)
+                continue
+            elif elegir_celular == 2:
+                print("Cuantos Samsung A54 Deseas llevar")
+                cantidad_samsung = input("Introduzca la cantidad: ").strip()
+                if not cantidad_samsung.isdigit():
+                    print("Opps! Caracter invalido , intentenlo nuevamente")
+                    continue
+                cantidad_samsung = int(cantidad_samsung)
+                unidades_samsunga54 += cantidad_samsung
+                print("OK!....")
+                time.sleep(2)
+                print("Guardando datos...")
+                time.sleep(3)
+                continue
+            elif elegir_celular == 3:
+                print("Cuantos Xiaomi Redmi Deseas llevar")
+                cantidad_xiaomi = input("Introduzca la cantidad: ").strip()
+                if not cantidad_xiaomi.isdigit():
+                    print("Opps! Caracter invalido , intentenlo nuevamente")
+                    time.sleep(3)
+                    continue
+                cantidad_xiaomi = int(cantidad_xiaomi)
+                unidades_xiaomi += cantidad_xiaomi
+                print("OK!....")
+                time.sleep(2)
+                print("Guardando datos...")
+                time.sleep(3)
+                continue
+            elif elegir_celular == 4:
+                time.sleep(1)
+                print("Saliendo....")
+                time.sleep(2)
+                os.system("clear")
+                break
+            else:
+                print("Opps! Opcion invalida , intentalo nuevamente")
+                time.sleep(3)
+                continue
+    elif elegir_categoria == 2:
+        while True:
+            os.system("clear")
+            print(" LAPTOPS ".center(50, "="))
+            print("\nPRODUCCTOS LAPTOPS:\n")
+            print("1: MackBook Air   - S/5500")
+            print("2: Lenovo IdeaPad - S/2200")
+            print("3: HP Pavillon    - S/1800")
+            print("4: Salir de aqui/exit\n")
+            elegir_laptop = input(f"{nombre_cliente.title()} elija alguna opcion: ").strip()
+            if not elegir_laptop.isdigit():
+                print("Opps! Caracter invalido , Intentalo nuevamente")
+                time.sleep(3)
+                os.system("clear")
+                continue
+            elegir_laptop = int(elegir_laptop)
+            if elegir_laptop == 1:
+                print("Cuantos MackBook Air deseas llevar")
+                cantidad_mackbook = input("Introduzca la cantidad: ").strip()
+                if not cantidad_mackbook.isdigit():
+                    print("Opps! Caracter invalido , intentenlo nuevamente")
+                    time.sleep(3)
+                    continue
+                cantidad_mackbook = int(cantidad_mackbook)
+                unidades_mackbook_air += cantidad_mackbook
+                print("OK!....")
+                time.sleep(2)
+                print("Guardando datos...")
+                time.sleep(3)
+                continue
+            elif elegir_laptop == 2:
+                print("Cuantos Lenovo IdeaPad deseas llevar")
+                cantidad_lenovo = input("Introduzca la cantidad: ").strip()
+                if not cantidad_lenovo.isdigit():
+                    print("Opps! Caracter invalido , intentenlo nuevamente")
+                    continue
+                cantidad_lenovo = int(cantidad_lenovo)
+                unidades_lenovo_ideapad += cantidad_lenovo
+                print("OK!....")
+                time.sleep(2)
+                print("Guardando datos...")
+                time.sleep(3)
+                continue
+            elif elegir_laptop == 3:
+                print("Cuantos HP PaviLion Deseas llevar")
+                cantidad_hp = input("Introduzca la cantidad: ").strip()
+                if not cantidad_hp.isdigit():
+                    print("Opps! Caracter invalido , intentenlo nuevamente")
+                    continue
+                cantidad_hp = int(cantidad_hp)
+                unidades_hp_pavillon += cantidad_hp
+                print("OK!....")
+                time.sleep(2)
+                print("Guardando datos...")
+                time.sleep(3)
+                continue
+            elif elegir_laptop == 4:
+                time.sleep(1)
+                print("Saliendo....")
+                time.sleep(2)
+                os.system("clear")
+                break
+            else:
+                print("Opps! Opcion invalida , intentalo nuevamente")
+                time.sleep(4)
+                continue
+            
+    elif elegir_categoria == 3:
+        while True:
+            os.system("clear")
+            print(" ACCESORIOS ".center(50, "="))
+            print("\nPRODUCCTOS ACCESORIOS:\n")
+            print("1: Audifonos Sony   - S/350")
+            print("2: Mouse Logitech   - S/120")
+            print("3: Teclado Mecanico - S/280")
+            print("4: Salir de aqui/exit\n")
+            elegir_accesorio = input(f"{nombre_cliente.title()} elija alguna opcion: ").strip()
+            if not elegir_accesorio.isdigit():
+                print("Opps! Caracter invalido , Intentalo nuevamente")
+                time.sleep(3)
+                os.system("clear")
+                continue
+            elegir_accesorio = int(elegir_accesorio)
+            if elegir_accesorio == 1:
+                print("Cuantos Audifonos Sony deseas llevar")
+                cantidad_audifonos = input("Introduzca la cantidad: ").strip()
+                if not cantidad_audifonos.isdigit():
+                    print("Opps! Caracter invalido , intentenlo nuevamente")
+                    time.sleep(3)
+                    continue
+                cantidad_audifonos = int(cantidad_audifonos)
+                unidades_audifonos_sony += cantidad_audifonos
+                print("OK!....")
+                time.sleep(2)
+                print("Guardando datos...")
+                time.sleep(3)
+                continue
+            elif elegir_accesorio == 2:
+                print("Cuantos Mause Logitech deseas llevar")
+                cantidad_mause = input("Introduzca la cantidad: ").strip()
+                if not cantidad_mause.isdigit():
+                    print("Opps! Caracter invalido , intentenlo nuevamente")
+                    continue
+                cantidad_mause = int(cantidad_mause)
+                unidades_mause_logitech += cantidad_mause
+                print("OK!....")
+                time.sleep(2)
+                print("Guardando datos...")
+                time.sleep(3)
+                continue
+            elif elegir_accesorio == 3:
+                print("Cuantos Teclados Mecanicos deseas llevar")
+                cantidad_teclado = input("Introduzca la cantidad: ").strip()
+                if not cantidad_teclado.isdigit():
+                    print("Opps! Caracter invalido , intentenlo nuevamente")
+                    continue
+                cantidad_teclado = int(cantidad_teclado)
+                unidades_teclado_mecanico += cantidad_teclado
+                print("OK!....")
+                time.sleep(2)
+                print("Guardando datos...")
+                time.sleep(3)
+                continue
+            elif elegir_accesorio == 4:
+                time.sleep(1)
+                print("Saliendo....")
+                time.sleep(2)
+                os.system("clear")
+                break
+            else:
+                print("Opps! Opcion invalida , intentalo nuevamente")
+                time.sleep(4)
+                continue
+    elif elegir_categoria == 4:
+        while True:
+            print("Cargando lista...")
+            time.sleep(2)
+            os.system("clear")
+            print(f"{nombre_cliente.title()} Bienvenido a tu carrito!")
+            pago = (unidades_iphone * PRECIO_IPHONE_15) + (unidades_samsunga54 * PRECIO_SAMSUNG_A54) + (unidades_xiaomi * PRECIO_REDMI_XIAOMI) + (unidades_mackbook_air * PRECIO_MACKBOOK_AIR) + (unidades_lenovo_ideapad * PRECIO_LENOVO_IDEAPAD) + (unidades_hp_pavillon * PRECIO_HP_PAVILLON) + (unidades_audifonos_sony * PRECIO_AUDIFONO_SONY) + (unidades_mause_logitech * PRECIO_MAUSE_LOGITECH) + (unidades_teclado_mecanico * PRECIO_TECLADO_MECANICO)
+            
+            if pago >= 1:
+                while True:
+                    print(" Tu carrito es el siguiente ".center(50, "="))
+                    print("\nCelulares:")
+                    print(f"Iphone 15   : {unidades_iphone}")
+                    print(f"Samsung A54 : {unidades_samsunga54}")
+                    print(f"Xiaomi Redmi: {unidades_xiaomi} \n")
+                
+                    print("Laptops:")
+                    print(f"MacBook Air    : {unidades_mackbook_air}")
+                    print(f"Lenovo IdeaPad : {unidades_lenovo_ideapad}")
+                    print(f"HP PaviLion    : {unidades_hp_pavillon}\n")
+                
+                    print("Accesorios:")
+                    print(f"Audifonos Sony    : {unidades_audifonos_sony}")
+                    print(f"Mause Logitech    : {unidades_mause_logitech}")
+                    print(f"Teclado Mecanico  : {unidades_teclado_mecanico}\n")
+                    subtotal = pago
+                    descuento = pago * DESCUENTO_LINUXERO
+                    total_final = subtotal - descuento
+                    print(f"TOTAL A PAGAR: S/ {round(total_final,3)}")
+                    try:
+                        pagar = float(input("Ingrese el pago: "))
+                        if pagar == total_final or pagar > total_final:
+                            vuelto = pagar - subtotal
+                            print("Procesando...")
+                            time.sleep(2)
+                            print("\033[32m!PAGO REALIZADO!\033[0m")
+                            print("GENERANDO TICKET....")
+                            time.sleep(2)
+                            print("HECHO!")
+                            os.system("clear")
+                            #TICKET:
+                            print("=" *50)
+                            print("\tTICKET DE VENTA","TECHHSTORE PY :)",sep=(" - "))
+                            print("="*50)
+                            print("ID Ticket",f"{TicketID}",sep=(" : "))
+                            print("Fecha    ", f"{ahora.strftime("%Y-%m-%d %H:%M")}",sep=(" : "))
+                            print("Cliente  ",f"{nombre_cliente.title()}",sep=(" : "))
+                            print("DNI      ",f"{dni}",sep=(" : "))
+                            print("="*50)
+                            print("CELULARES")
+                            print("Iphone 15  ",f"{unidades_iphone } Unidad",sep=(" : "),end=(""))
+                            print(f" 🠪 S/{unidades_iphone * PRECIO_IPHONE_15}") 
+                            print("Samsung A54 ",f"{unidades_samsunga54 } Unidad",sep=(" : "),end=(""))
+                            print(f" 🠪 S/{unidades_samsunga54 * PRECIO_SAMSUNG_A54}") 
+                            print("Xiaomi Redmi",f"{unidades_xiaomi } Unidad",sep=(" : "),end=(""))
+                            print(f" 🠪 S/{unidades_xiaomi * PRECIO_REDMI_XIAOMI}\n")
+                            
+                            print("LAPTOPS")
+                            print("MacBook Air  ",f"{unidades_mackbook_air } Unidad",sep=(" : "),end=(""))
+                            print(f" 🠪 S/{unidades_mackbook_air * PRECIO_MACKBOOK_AIR}") 
+                            print("Lenovo IdeaPad ",f"{unidades_lenovo_ideapad } Unidad",sep=(" : "),end=(""))
+                            print(f" 🠪 S/{unidades_lenovo_ideapad * PRECIO_LENOVO_IDEAPAD}") 
+                            print("HP PaviLion",f"{unidades_hp_pavillon } Unidad",sep=(" : "),end=(""))
+                            print(f" 🠪 S/{unidades_hp_pavillon * PRECIO_HP_PAVILLON}\n")
+                            
+                            print("ACCESORIOS")
+                            print("Audifonos Sony  ",f"{unidades_audifonos_sony } Unidad",sep=(" : "),end=(""))
+                            print(f" 🠪 S/{unidades_audifonos_sony * PRECIO_AUDIFONO_SONY}") 
+                            print("Mause Logitech ",f"{unidades_mause_logitech} Unidad",sep=(" : "),end=(""))
+                            print(f" 🠪 S/{unidades_mause_logitech * PRECIO_MAUSE_LOGITECH}") 
+                            print("Teclado Mecanico",f"{unidades_teclado_mecanico } Unidad",sep=(" : "),end=(""))
+                            print(f" 🠪 S/{unidades_teclado_mecanico * PRECIO_TECLADO_MECANICO}\n") 
+                            
+                            print("="*50)
+                            print("\tDESCUENTO LINUXERO!")
+                            print("="*50)
+                            print("TOTAL PAGADO",f"S/ {subtotal}",sep=(" : "))
+                            print(f"{nombre_cliente.split()[0].capitalize()} Gracias por su preferencia!, vuelva pronto.")
+                            time.sleep(2)
+                            print("Saliendo... :)")
+                            time.sleep(1)
+                            sys.exit()
+                        elif pagar != total_final:
+                            print("Procesando...")
+                            time.sleep(2)
+                            print("Saldo insuficiente! Intentalo de nuevo")
+                            print("Limpiando...")
+                            time.sleep(2)
+                            os.system("clear")
+                            continue
+                        break
+                    except ValueError:
+                        print("Opps! Caracter invalido , intentalo nuevamente")
+            elif pago == 0:
+                print(f"{nombre_cliente.split()[0].title()} Aun no compraste nada!....")
+                time.sleep(2)
+                print("Realiza algun pedido en el menu....")
+                time.sleep(3)
+                break
+    else:
+        print("Opps! Opcion invalida , intentalo nuevamente")
+        time.sleep(3)
+        os.system("clear")
+print("Fin del programa.")
