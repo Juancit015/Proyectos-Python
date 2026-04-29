@@ -1,0 +1,494 @@
+#----------------------------inicio-----------------------------!
+#Librerias
+import time
+import os
+import random
+import datetime
+import sys
+import smtplib
+from email.message import EmailMessage
+
+#!Constantes
+NOMBRES_TECNICOS = ["juan" , "alex" , "albert" , "sofia"]
+MAXI_INTENTOS = 3
+PIN = ["1234" , "6363" , "4528"]
+LONGITUD_USUARIO = 4
+NOMBRE_USUARIO = True
+
+
+#variables
+Ticket = random.randint(2624,7636)
+hora = datetime.datetime.now()
+
+#Mensaje declarado para el correo 
+mensaje = f"Posible ataque a la plataforma! por favor verifique la actividad del servidor!\n HORA: {hora.strftime("%Y-%m-%d %H:%M")}"
+#Funciones
+def enviar_reporte(ALERTA_DE_SEGURIDAD):
+    remitente = ""
+    password = ""
+    receptor = ""
+    
+    asunto = "Alerta de seguridad!"
+    #Cuerpo del gmail
+    email_cuerpo = f"subject: {asunto}\n\n{ALERTA_DE_SEGURIDAD}"
+    #Intenta validar las credenciales y envia el gmail 
+    try:
+        #Establesco conexion usando la libreria para conectarse con el servidor de google y el puerto 465 siendo el seguro
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        #Me logueo con el dato remitente y password
+        server.login(remitente , password)
+        #Envio el email primero remitente luego el receptor y el cuerpo del email
+        server.sendmail(remitente ,receptor, email_cuerpo)
+        #Cierro la llamada al servidor
+        server.quit()
+        print("!Reporte enviado de manera excitosa")
+    except Exception as e:
+        #Si no se logro dime el por que
+        print(f"Error: {e}")
+
+#Funcion decorativa
+def Decoracion_mensaje(mensaje):
+    print("Procesando...")
+    time.sleep(3)
+    print("Datos validos ✅")
+    time.sleep(3)
+    os.system("clear")
+
+def Decoracion_mensajeMalo(mensaje):
+    print("Opps! Caracteres invalidos , Intentelo nuevamente ❌")
+    time.sleep(3)
+    os.system("clear")
+
+def juegoelegido(mensaje):
+    print("Juego Seleccionado! ✅")
+    time.sleep(2)
+    os.system("clear")
+
+#Ticket!
+def ticketfinal(nombre):
+    os.system("clear")
+    print("="*50)
+    print(" TICKET GAMES PERU 🎮 ".center(50,))
+    print("="*50)
+    print("ID TICKET",f"{Ticket}",sep=(" : "))
+    print("Fecha",f"{hora.strftime("%Y-%m-%d %H:%M")}",sep=(" : "))
+    print("="*50)
+    print(" DATOS DEL USUARIO ".center(50))
+    print("="*50)
+    print("Nombre ",f"{nombre_jugador.title()}",sep=(" : "))
+    print("Usuario",f"{usuario_jugador.capitalize()}",sep=(" : "))
+    print("Edad   ",f"{edad_usuario}",sep=(" : "))
+    print("="*50)
+    print(" Datos ".center(50))
+    print("="*50)
+    print("Hora ",f"{hora.strftime("%Y-%m-%d %H:%M")}",sep=(" : "))
+    print("Juego",f"{juego_escojido}",sep=(" : "))
+    print("Rango",f"{rango}",sep=(" : "))
+    ultima_pregunta = True
+    while ultima_pregunta:
+        validar = input("\nDesea registrar a otra persona?: ").strip().lower()
+        if not validar.isalpha():
+            Decoracion_mensajeMalo(validar)
+            continue
+        elif validar.startswith(("si")):
+            print("Okay ! Volviendo...")
+            time.sleep(3)
+            os.system("clear")
+            catalogo = False
+            break            
+        elif validar.startswith("no"):
+            print("Okay ! Saliendo del programa...")
+            time.sleep(3)
+            sys.exit()
+        else:
+            print("Opcion no reconocida , intentelo nuevamente ❌")
+            time.sleep(3)
+            os.system("clear")
+            continue
+
+#Caracteres o
+    print()
+#Login Admin 
+os.system("clear")
+print("Cargando fase 1 🤖 ...")
+time.sleep(2)
+print("Configurando...")
+time.sleep(2)
+print("Hecho!")
+os.system("clear")
+
+os.system("clear")
+#Agente Fase 1
+while True:
+    
+    print(" Plataforma Games Peru Sport 🎮 ".center(50,"="))
+    nombre = input("\nPor favor , Ingrese su nombre: ").strip().lower()
+    if not nombre.isalpha():
+        print("Opps! Caracteres invalidos , Intentalo nuevamente ❌")
+        time.sleep(3)
+        os.system("clear")
+        continue
+    elif nombre not in NOMBRES_TECNICOS:
+        print("Opps! Nombre no registrado , intentelo nuevamente ❌")
+        time.sleep(3)
+        os.system("clear")
+        continue
+    else:
+        Decoracion_mensaje(nombre)
+        break
+#Agente fase 2
+
+intentos = 0
+while True:
+    print(" Plataforma Games Peru Validacion PIN ".center(60 , "="))
+    print(f"\n{nombre.capitalize()} Valide su PIN secreto ⚠️")
+    pin_agente = input("Ingrese su PIN: ").strip()
+    #Usamos la funcion replace para quitar espacios y isdigit validar si lo ingresado son numeros
+    if not pin_agente.replace(" ","").isdigit():
+        Decoracion_mensajeMalo(pin_agente)
+        continue
+    elif pin_agente in PIN:
+        Decoracion_mensaje(pin_agente)
+        break
+    else:
+        print("Opps! Pin incorrecto , intentalo nuevamente ❌")
+        time.sleep(2)
+        os.system("clear")
+        intentos += 1
+        if intentos == MAXI_INTENTOS:
+            print("Error! Demasiados intentos , saliendo del programa ❌")
+            time.sleep(2)
+            print(print("\033[31mEnviando reporte...\033[0m"))
+            enviar_reporte(mensaje)
+            time.sleep(3)
+            sys.exit()
+#Registro del jugador 
+while NOMBRE_USUARIO:
+    print(" Registro del jugador Games peru 🎮 ".center(50, "="))
+
+    nombre_jugador = input("\nIngrese su nombre: ").strip().lower()
+    if not nombre_jugador.replace(" ","").isalpha():
+        Decoracion_mensajeMalo(nombre_jugador)
+        continue
+    elif len(nombre_jugador) < LONGITUD_USUARIO:
+        print("\nOpps! Nombre demasiado corto , intentalo nuevamente ❌")
+        time.sleep(3)
+        os.system("clear")
+        continue
+    else:
+        Decoracion_mensaje(nombre_jugador)
+        break
+
+while True:
+    print(" Registro de usuarios Games Peru 🎮 ".center(50 , "="))
+    
+    usuario_jugador = input("\nIngrese su usuario: ").strip().lower()
+    if not usuario_jugador.replace(" ","").isalpha():
+        Decoracion_mensajeMalo(usuario_jugador)
+        continue
+    elif len(usuario_jugador) <= LONGITUD_USUARIO:
+        print("\nOpps! Usuario demasiado corto , intentalo nuevamente ❌")
+        time.sleep(3)
+        os.system("clear")
+        continue
+    else:
+        print(f"Usuario registrado!")
+        time.sleep(2)
+        Decoracion_mensaje(usuario_jugador)
+        break
+    
+while True:
+    try:
+        print(" Registro de edad Games Peru 🎮 ".center(50, "="))
+        edad_usuario = input("\nIngrese su edad: ").strip()
+        if not edad_usuario.isdigit():
+            Decoracion_mensajeMalo(edad_usuario)
+            continue
+        edad_usuario = int(edad_usuario)
+        if edad_usuario <18 or edad_usuario >70:
+            print("Opps! Edad no valida! intentalo de nuevo ❌")
+            time.sleep(3)
+            os.system("clear")
+            continue 
+        else:
+            Decoracion_mensaje(edad_usuario)
+            break 
+    except ValueError:
+        Decoracion_mensajeMalo(edad_usuario)
+        continue
+
+#Descripcion jugador:
+while True:
+    print(" El momento llego! Describase como jugador ⚔️ ".center(70 , "="))
+    
+    detalles_jugador = input("\nDescribase como jugador: ").strip()
+    if not detalles_jugador.replace(" ","").isalpha():
+        Decoracion_mensajeMalo(detalles_jugador)
+        continue
+    #El contador inicializa en 0
+    contador = 0
+    #Suma a contador el NUMERO ENTERO q entrega count si detecta la cantidad de palabras en los detalles del jugador 
+    contador += detalles_jugador.lower().count("pro")
+    contador += detalles_jugador.lower().count("agresivo")
+    contador += detalles_jugador.lower().count("defensa")
+    contador += detalles_jugador.lower().count("ataque")
+    contador += detalles_jugador.lower().count("velocidad")
+    contador += detalles_jugador.lower().count("preciso")
+    contador += detalles_jugador.lower().count("inteligencia")
+    contador += detalles_jugador.lower().count("años")
+    
+    if contador <= 2:
+        rango = "Bronce"
+    elif contador <= 5:
+        rango = "Plata"
+    elif contador <= 8:
+        rango = "Oro"
+    else:
+        rango = "Diamante"
+        
+    if not detalles_jugador.replace(" ",""):
+        Decoracion_mensajeMalo(detalles_jugador)
+        continue
+    #Si desde el indice 0 hasta el 1 esta en minuscula:
+    elif not detalles_jugador[0:1].isupper():
+        print(f"Opps! Tu descripcion debe empezar con una Mayuscula ❌! Por ejem: {detalles_jugador[0:1].upper()} y el resto con minusculas! ✅")
+        time.sleep(3)
+        os.system("clear")
+        continue
+    elif not detalles_jugador.endswith("."):
+        print("Opps! Tu descripcion debe terminar con un '.' al final! ❌")
+        time.sleep(3)
+        os.system("clear")
+        continue
+    elif len(detalles_jugador.replace(" ","")) <= 30:
+        print("Opps! Descripcion demasiado corta! minimo de caracteres : 50")
+        time.sleep(3)
+        os.system("clear")
+        continue
+    else:
+        Decoracion_mensaje(detalles_jugador)
+        break
+#Catalogo juegos
+catalogo = True
+while catalogo:
+    print(" Catalogo de juegos 🕹️ ".center(50, "="))
+    print("\n1: Shooters 🔫")
+    print("2: Estrategia 🧠")
+    print("3: Deporte 🥇")
+    print("4: RPG ⚔️\n")
+    elegir_catalogo = input("Ingrese alguna opcion: ").strip()
+    if not elegir_catalogo.isdigit():
+        Decoracion_mensajeMalo(elegir_catalogo)
+        continue
+    elif elegir_catalogo == "1":
+        while True:
+            os.system("clear")
+            print(" Juegos Shooters 🔫 ".center(50, "="))
+            
+            print("\n1: Counter-Strike 2")
+            print("2: Call of Duty: Warzone")
+            print("3: Valorant\n")
+            print("4: Salir de aca")
+    
+            elegir_rpg = input("Elija algun VideoJuego: ").strip()
+            if not elegir_rpg.isdigit():
+                Decoracion_mensajeMalo(elegir_rpg)
+                continue
+            elif elegir_rpg == "1":
+                juego_escojido = "Counter-Strike 2"
+                print("Elegiste Counter Strike 2!")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+            elif elegir_rpg == "2":
+                juego_escojido = "Call of Duty: Warzone"
+                print("Elegiste Call of Duty: Warzone")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+            elif elegir_rpg == "3":
+                juego_escojido = "Valorant"
+                print("Elegiste Valorant!")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+                
+            elif elegir_rpg == "4":
+                print("Saliendo...")
+                time.sleep(3)
+                os.system("clear")
+                break
+            else:
+                print("Opps! Opcion no valida! , intentelo de nuevo ❌")
+                time.sleep(3)
+                os.system("clear")
+                continue
+    elif elegir_catalogo == "2":
+        while True:
+            os.system("clear")
+            print(" Estrategia 🧠 ".center(50, "="))
+            
+            print("\n1: Age of Empires")
+            print("2: StartCraft")
+            print("3: Civilization")
+            print("4: Salir de aca\n")
+    
+            elegir_rpg = input("Elija algun VideoJuego: ").strip()
+            if not elegir_rpg.isdigit():
+                Decoracion_mensajeMalo(elegir_rpg)
+                continue
+            elif elegir_rpg == "1":
+                juego_escojido = "Age of Empires"
+                print("Elegiste Age of Empires")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+            elif elegir_rpg == "2":
+                juego_escojido = "StartCraft"
+                print("Elegiste StartCraft")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+            elif elegir_rpg == "3":
+                juego_escojido = "Civilization"
+                print("Elegiste Civilization!")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+            elif elegir_rpg == "4":
+                print("Saliendo...")
+                time.sleep(3)
+                os.system("clear")
+                break
+            else:
+                print("Opps! Opcion no valida! , intentelo de nuevo ❌")
+                time.sleep(3)
+                os.system("clear")
+                continue
+    elif elegir_catalogo == "3":
+        while True:
+            os.system("clear")
+            print(" Deporte 🥇 ".center(50, "="))
+            
+            print("\n1: EA Sports FC 24")
+            print("2: NBA 2K24")
+            print("3: Rocket League")
+            print("4: Salir de aca\n")
+    
+            elegir_rpg = input("Elija algun VideoJuego: ").strip()
+            if not elegir_rpg.isdigit():
+                Decoracion_mensajeMalo(elegir_rpg)
+                continue
+            elif elegir_rpg == "1":
+                juego_escojido = "EA Sports FC 24"
+                print("Elegiste EA Sports FC 24")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+            elif elegir_rpg == "2":
+                juego_escojido = "NBA 2K24"
+                print("Elegiste NBA 2K24")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+            elif elegir_rpg == "3":
+                juego_escojido = "Rocket League"
+                print("Elegiste Rocket League!")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+                
+            elif elegir_rpg == "4":
+                print("Saliendo...")
+                time.sleep(3)
+                os.system("clear")
+                break
+            else:
+                print("Opps! Opcion no valida! , intentelo de nuevo ❌")
+                time.sleep(3)
+                os.system("clear")
+                continue
+    elif elegir_catalogo == "4":
+        while True:
+            os.system("clear")
+            print(" RPG ⚔️ ".center(50, "="))
+            
+            print("\n1: The Witcher 3: Wild Hunt")
+            print("2: Elden Ring")
+            print("3: Skyrim")
+            print("4: Salir de aca\n")
+    
+            elegir_rpg = input("Elija algun VideoJuego: ").strip()
+            if not elegir_rpg.isdigit():
+                Decoracion_mensajeMalo(elegir_rpg)
+                continue
+            elif elegir_rpg == "1":
+                juego_escojido = "The Witcher 3: Wild Hunt"
+                print("Elegiste The Witcher 3: Wild Hunt")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+            elif elegir_rpg == "2":
+                juego_escojido = "Elden Ring"
+                print("Elegiste Elden Ring")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+            elif elegir_rpg == "3":
+                juego_escojido = "Skyrim"
+                print("Elegiste Skyrim!")
+                time.sleep(2)
+                print("Procesando Ticket...")
+                time.sleep(3)
+                print("\033[92mHecho!\033[0m")
+                ticketfinal(elegir_rpg)
+                break
+                
+            elif elegir_rpg == "4":
+                print("Saliendo...")
+                time.sleep(3)
+                os.system("clear")
+                break
+            else:
+                print("Opps! Opcion no valida! , intentelo de nuevo ❌")
+                time.sleep(3)
+                os.system("clear")
+                continue
+    else:
+        print("Opps! Opcion no valida! , intentelo de nuevo ❌")
+        time.sleep(3)
+        os.system("clear")
+        continue
