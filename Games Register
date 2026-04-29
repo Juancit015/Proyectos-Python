@@ -33,7 +33,7 @@ def enviar_reporte(ALERTA_DE_SEGURIDAD):
     email_cuerpo = f"subject: {asunto}\n\n{ALERTA_DE_SEGURIDAD}"
     #Intenta validar las credenciales y envia el gmail 
     try:
-        #Establesco conexion usando la libreria para conectarse con el servidor de google y el puerto 465 siendo el seguro
+        #Establezco conexion usando la libreria para conectarse con el servidor de google y el puerto 465 siendo el seguro
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         #Me logueo con el dato remitente y password
         server.login(remitente , password)
